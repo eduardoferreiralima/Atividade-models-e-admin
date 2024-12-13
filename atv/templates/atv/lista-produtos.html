@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista</title>
+</head>
+<style>
+    body{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+</style>
+<body>
+    <h1>Lista de Produto</h1>
+
+    {% for produto in produtos %}
+
+    <a href="{% url 'detalhes_produto' produto.codigo %}">Nome do Produto: {{ produto.nome }}</a> - Preço: {{ produto.preco }}
+    
+    {% endfor %}
+    
+</body>
+</html>
