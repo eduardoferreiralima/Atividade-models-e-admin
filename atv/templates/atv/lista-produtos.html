@@ -21,6 +21,8 @@
     <a href="{% url 'detalhes_produto' produto.codigo %}">Nome do Produto: {{ produto.nome }}</a> - Preço: {{ produto.preco }}
     
     {% endfor %}
+
+    <a href="{% url "cadastrar_produto" %}"><button>Novo Produto</button></a>
     
 </body>
 </html>
