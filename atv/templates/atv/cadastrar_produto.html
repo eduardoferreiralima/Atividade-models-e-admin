@@ -24,6 +24,17 @@
         <h1>Cadastrar novo Produto</h1>
         <form action="{% url 'cadastrar_produto' %}" method="post">
             {%csrf_token%}
+            {% if form.errors %}
+            <div class="alert alert-danger">
+                <ul>
+                    {% for field, errors in form.errors.items %}
+                        {% for error in errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
             {{form}}
             <button type="submit">Cadastrar</button>
         </form>
@@ -31,6 +42,18 @@
         <a href="{% url "cadastrar_categoria" %}"><button id="produto_button">Nova Categoria</button></a>
 
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            setTimeout(function() {
+                let alertBox = document.querySelector(".alert");
+                if (alertBox) {
+                    alertBox.style.transition = "opacity 0.5s";
+                    alertBox.style.opacity = "0";
+                    setTimeout(() => alertBox.remove(), 500);
+                }
+            }, 5000);  // 5000ms = 5 segundos
+        });
+    </script>
 </body>
 
 </html>
