@@ -1,7 +1,9 @@
+from encodings import search_function
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from .models import Products, Fornecedor, Categoria
 from .forms import ProductsModelForm, FornecedorModelForm, CategoriaModelForm
 from django.views.generic import ListView, CreateView, DetailView
+from django.db.models import Q
 from django.urls import reverse_lazy
 # Create your views here.
 
@@ -9,6 +11,29 @@ class Lista_produtos(ListView):
     model = Products
     template_name = 'atv/lista-produtos.html'
     context_object_name = 'produtos'
+    paginate_by = 5
+
+    def get_queryset(self):
+        busca = self.request.GET.get('busca')
+        preco_min = self.request.GET.get('preco_min')
+        preco_max = self.request.GET.get('preco_max')
+        queryset = Products.objects.all()
+
+        if preco_min:
+            print('preco')
+            queryset = queryset.filter(preco__gte=preco_min)
+
+        if preco_max:
+            print('preco')
+            queryset = queryset.filter(preco__lte=preco_max)
+
+        if preco_max and preco_min:
+            print('preco')
+            queryset = queryset.filter(Q(preco__gte=preco_min) & Q(preco__lte=preco_max))
+
+        if busca:
+            queryset = queryset.filter(nome__icontains=busca)
+        return queryset
 
 class Detalhes_produtos(DetailView):
     model = Products

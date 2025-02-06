@@ -1,28 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista</title>
 </head>
 <style>
-    body{
+    body {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
     }
+
+    .paginacao {
+        display: flex;
+        flex-direction: row;
+        gap:20px;
+    }
 </style>
+
 <body>
     <h1>Lista de Produto</h1>
 
+    <form action="" method="GET">
+        <input name="busca" type="text" placeholder="Digite o nome do Produto">
+        <button type="submit">Buscar</button>
+    </form>
+    <form action="" method="GET">
+        <input name="preco_min" id="preco_min" type="number" step="0.01" placeholder="Preço Mínimo">
+        <input name="preco_max" id="preco_max" type="number" step="0.01" placeholder="Preço Máximo">
+        <button type="submit" id="filter">Filtrar</button>
+    </form>
+
     {% for produto in produtos %}
 
-    <a href="{% url 'detalhes_produto' produto.codigo %}">Nome do Produto: {{ produto.nome }}</a> - Preço: {{ produto.preco }}
-    
+    <a href="{% url 'detalhes_produto' produto.codigo %}">Nome do Produto: {{ produto.nome }}</a> - Preço: {{produto.preco }}
+
     {% endfor %}
 
     <a href="{% url "cadastrar_produto" %}"><button>Novo Produto</button></a>
-    
+    {% if page_obj.has_previous %}
+    <div class="paginacao">
+        <a href="?page=1">&laquo; primeira</a>
+        <a href="?page={{ page_obj.previous_page_number }}">anterior</a>
+    </div>
+    {% endif %}
+    <span>
+        Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+    </span>
+
+    <div class="paginacao">
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">Próxima</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">Última &raquo;</a>
+        {% endif %}
+    </div>
+
 </body>
+
+
 </html>
