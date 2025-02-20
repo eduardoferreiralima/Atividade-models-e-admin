@@ -1,27 +1,36 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/detalhes.css' %}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalhes do Produto</title>
-    <style>
-        body{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-    </style>
-
 </head>
 <body>
-    <h1>Detalhes do Produto</h1>
-<p>Nome: {{ produto.nome }}</p>
-<p>Código: {{ produto.codigo }}</p>
-<p>Preço: R$ {{ produto.preco }}</p>
-<p>Quantidade em Estoque: {{ produto.quantidade_estoque }}</p>
-<p>Fornecedor: {{ produto.fornecedor.nome }}</p>
-<p>Categorias: {% for categoria in produto.categorias.all %}{{ categoria.nome }} {% endfor %}</p>
+    <div class="container">
+        <h1>Detalhes do Produto</h1>
+        <div class="all">
+            <div class="esquerdo">
+                <p><span>Nome:</span> {{ produto.nome }}</p>
+                <p><span>Código:</span> {{ produto.codigo }}</p>
+                <p><span>Preço:</span> R$ {{ produto.preco }}</p>
+                <p><span>Quantidade em Estoque:</span> {{ produto.quantidade_estoque }}</p>
+                <p><span>Fornecedor:</span> {{ produto.fornecedor.nome }}</p>
+                <p><span>Categorias:</span> 
+                    {% for categoria in produto.categorias.all %}
+                        {{ categoria.nome }} 
+                    {% endfor %}
+                </p>
+            </div>
+    
+            <div class="direito">
+                {% if produto.imagem %}<img src="{{produto.imagem.url}}" alt="">{% endif %}
+            </div>
+        </div>
 
+
+    </div>
 </body>
+
 </html>

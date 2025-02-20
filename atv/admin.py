@@ -3,13 +3,15 @@ from django.contrib import admin
 # Register your models here.
 
 from django.contrib import admin
-from .models import Products, Categoria, Fornecedor
+from .models import Products, Categoria, Fornecedor, CustomUser
 
-
+@admin.register(CustomUser)
+class CustomUserAdmin(admin.ModelAdmin):
+    ...
 
 @admin.register(Products)
 class ProdutoAdmin(admin.ModelAdmin):
-    list_display = ('codigo', 'nome', 'preco', 'quantidade_estoque', 'data_criacao')  # Campos na listagem
+    list_display = ('codigo', 'nome', 'imagem', 'preco', 'quantidade_estoque', 'data_criacao')  # Campos na listagem
     search_fields = ('codigo', 'nome')  # Campos para busca
     list_filter = ('data_criacao',)  # Filtro por data de criação
     ordering = ('-data_criacao',)  # Ordenação decrescente

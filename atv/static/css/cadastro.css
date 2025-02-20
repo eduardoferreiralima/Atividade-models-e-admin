@@ -1,0 +1,99 @@
+/* Reset básico para remover margens e paddings padrão */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Estilização do container do formulário */
+#categoria {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Título do formulário */
+#categoria h1 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #153448;
+}
+
+/* Estilização do formulário */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Campos de entrada */
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+/* Efeito ao focar nos campos */
+input:focus, select:focus, textarea:focus {
+    border-color: #007bff;
+    box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.5);
+    outline: none;
+}
+
+/* Botão principal */
+button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #0056b3;
+}
+
+/* Botão de login */
+a button {
+    background: #28a745;
+    margin-top: 10px;
+}
+
+a button:hover {
+    background: #218838;
+}
+
+/* Mensagens de erro */
+.alert {
+    max-width: 400px;
+    margin: 10px auto;
+    background: #ffcccc;
+    color: #cc0000;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: left;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.alert ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+/* Responsividade */
+@media (max-width: 480px) {
+    #categoria {
+        width: 90%;
+    }
+}

@@ -1,7 +1,16 @@
 
 from django.db import models
-
+from django.contrib.auth.models import AbstractUser
 # Create your models here.
+
+
+
+class CustomUser(AbstractUser):
+    username = models.CharField(max_length=50, default=None, null=True, unique=True)
+    email = models.EmailField(max_length=254, unique=True)
+    
+
+
 class Categoria(models.Model):
     nome = models.CharField(max_length=25)
     def __str__(self):
@@ -23,6 +32,7 @@ class Products(models.Model):
     data_criacao = models.DateTimeField(auto_created=True, auto_now=True)
     categorias = models.ManyToManyField(Categoria, related_name='produtos')
     fornecedor = models.ForeignKey(Fornecedor, on_delete=models.CASCADE, related_name='produtos')
+    imagem = models.ImageField(upload_to="images", height_field=None, width_field=None, max_length=None, default=None, null=True)
 
     def __str__(self):
         return self.nome

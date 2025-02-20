@@ -1,28 +1,30 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static "css/produto.css" %}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastrar Produto</title>
 </head>
 
-<style>
-    .errorlist {
-        display: none;
-    }
-    body{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
+<style> 
 </style>
 
 <body>
     <div id="produto">
         <h1>Cadastrar novo Produto</h1>
-        <form action="{% url 'cadastrar_produto' %}" method="post">
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <form action="{% url 'cadastrar_produto' %}" method="post" enctype="multipart/form-data">
             {%csrf_token%}
             {% if form.errors %}
             <div class="alert alert-danger">
@@ -39,9 +41,13 @@
             <button type="submit">Cadastrar</button>
         </form>
         <a href="{% url "cadastrar_fornecedor" %}"><button id="produto_button">Novo Fornecedor</button></a>
+        <a href="{% url "lista_produtos" %}"><button id="produto_button">Lista de Produtos</button></a>
         <a href="{% url "cadastrar_categoria" %}"><button id="produto_button">Nova Categoria</button></a>
+        
 
     </div>
+
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             setTimeout(function() {

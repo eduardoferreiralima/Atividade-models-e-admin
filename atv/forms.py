@@ -1,5 +1,5 @@
 from django import forms
-from .models import Fornecedor, Categoria, Products
+from .models import Fornecedor, Categoria, Products, CustomUser
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 class ProductsModelForm(forms.ModelForm):
@@ -14,9 +14,10 @@ class ProductsModelForm(forms.ModelForm):
     )
     class Meta:
         model = Products
-        fields = ['nome', 'descricao', 'codigo', 'preco', 'quantidade_estoque', 'fornecedor', 'categorias']
+        fields = ['nome', 'descricao', 'imagem', 'codigo', 'preco', 'quantidade_estoque', 'fornecedor', 'categorias']
         labels = {'nome':'Nome do Produto', 
                   'descricao':'Descrição do Produto',
+                  'imagem':'Imagem do Produto',
                   'codigo':'Código do Produto',
                   'preco':'Preço do Produto',
                   'quantidade_estoque':'Quantidade em Estoque',
@@ -59,3 +60,22 @@ class CategoriaModelForm(forms.ModelForm):
         labels = {
             'nome':'Nome da Categoria'
         }
+
+class CadastroModelForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ['first_name', 'last_name', 'email', 'username', 'password']
+        labels= {
+            'first_name':'Primeiro Nome',
+            'last_name':"Último nome",
+            'username':'Nome de usuário',
+            'email':'Endereço de E-mail',
+            'password':'Senha'
+        }
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.set_password(self.cleaned_data["password"])  # 🔒 Criptografa a senha
+        if commit:
+            user.save()
+        return user
