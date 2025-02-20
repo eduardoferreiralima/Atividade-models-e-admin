@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static "css/login.css" %}">
+    <title>Login</title>
+</head>
+
+<style>
+    .errorlist {
+        display: none;
+    }
+    body{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+</style>
+
+<body>
+    <div id="categoria">
+        <h1>Fazer Login</h1>
+        <form method="post">
+            {%csrf_token%}
+            {{form}}
+            <button type="submit">Entrar</button>
+        </form>
+        <a href="{% url "cadastro" %}"><button id="produto_button">Não Tenho uma Conta!</button></a>
+    </div>
+    {% if form.errors %}
+    <div class="alert alert-danger">
+        <ul>
+            {% for field, errors in form.errors.items %}
+                {% for error in errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static "css/cadastro.css" %}">
+    <title>Cadastrar</title>
+</head>
+
+<style>
+    .errorlist {
+        display: none;
+    }
+    body{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+</style>
+
+<body>
+    <div id="categoria">
+        <h1>Cadastrar Novo Usuário</h1>
+        <form action="" method="post">
+            {%csrf_token%}
+            {{form}}
+            <button type="submit">Cadastrar</button>
+        </form>
+        <a href="{% url "login" %}"><button id="produto_button">Já tenho uma Conta!</button></a>
+        
+    </div>
+    {% if form.errors %}
+    <div class="alert alert-danger">
+        <ul>
+            {% for field, errors in form.errors.items %}
+                {% for error in errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+</body>
+
+</html>

@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Fornecedor</title>
+    <link rel="stylesheet" href="{% static "css/fornecedor.css" %}">
+</head>
+
+<style>
+
+</style>
+
+<body>
+    <div id="fornecedor">
+        <h1>Cadastrar novo Fornecedor</h1>
+        <form action="{% url 'cadastrar_fornecedor' %}" method="post">
+            {%csrf_token%}
+            {{form}}
+            <button type="submit">Cadastrar</button>
+        </form>
+        <a href="{% url "cadastrar_produto" %}"><button id="produto_button">Novo Produto</button></a>
+        <a href="{% url "lista_produtos" %}"><button id="produto_button">Lista de Produtos</button></a>
+        <a href="{% url "cadastrar_categoria" %}"><button id="produto_button">Nova Categoria</button></a>
+    </div>
+</body>
+
+</html>
